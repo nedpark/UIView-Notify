@@ -67,18 +67,22 @@
 	labelMessage = [[UILabel alloc] init];
 	[labelMessage setNumberOfLines:kMaxMessageLines];
 	[labelMessage setFont:[UIFont systemFontOfSize:kFontSize]];
-	[labelMessage setLineBreakMode:UILineBreakModeWordWrap];
+	[labelMessage setLineBreakMode:NSLineBreakByWordWrapping];
 	[labelMessage setTextColor:[UIColor whiteColor]];
 	[labelMessage setBackgroundColor:[UIColor clearColor]];
 	[labelMessage setText:message];
 	
 	// Size the label frame according to the length of the text
 	CGSize maxSize = CGSizeMake((self.bounds.size.width * 0.8), self.bounds.size.height * 0.8);
-	CGSize currentSize = [message sizeWithFont:labelMessage.font
-							 constrainedToSize:maxSize
-								 lineBreakMode:UILineBreakModeWordWrap];
+    
+    NSDictionary *stringAttributes = [NSDictionary dictionaryWithObject:labelMessage.font forKey: NSFontAttributeName];
+    
+    CGSize currentSize = [message boundingRectWithSize:maxSize
+                                               options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:stringAttributes context:nil].size;
+    
 	[labelMessage setFrame:CGRectMake(0.0, self.frame.size.height, currentSize.width, currentSize.height)];
-		
+    
     CGFloat wrapperHeight = labelMessage.bounds.size.height + kPaddingY * 2;
 	
     [wrapperView setFrame:CGRectMake(0.0, 0.0, 320, wrapperHeight)];
