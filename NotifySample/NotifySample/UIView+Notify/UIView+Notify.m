@@ -85,7 +85,7 @@
     
     CGFloat wrapperHeight = labelMessage.bounds.size.height + kPaddingY * 2;
 	
-    [wrapperView setFrame:CGRectMake(0.0, 0.0, 320, wrapperHeight)];
+    [wrapperView setFrame:CGRectMake(0.0, 0.0, self.bounds.size.width, wrapperHeight)];
 	
 	[labelMessage setFrame:CGRectMake(kPaddingX, kPaddingY,
 									  labelMessage.bounds.size.width, labelMessage.bounds.size.height)];
